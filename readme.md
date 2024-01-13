@@ -5,6 +5,8 @@
 This web application predicts flight delays based on user input. 
 Users can enter details such as month, day, time, carrier, origin, destination, and distance to get a prediction about potential delays.
 
+![Interface Screenshot](screenshot.JPG)
+
 ## Features
 
 - Input form for user details.
@@ -48,6 +50,9 @@ Users can enter details such as month, day, time, carrier, origin, destination, 
 - `static/`: Static files (CSS, images, etc.).
 - `templates/`: HTML templates.
 
+## References
+
+- Dataset used : https://www.kaggle.com/code/altprof/basic-semi-supervised-learning-models/notebook
 
 
 
