@@ -46,7 +46,10 @@
 
         
         <div class="button">
-            <button class="submit" onclick="onClickedPredictDelay()" type="button">Predict Delay</button>
+            <button id="predictButton" class="submit" onclick="onClickedPredictDelay()" type="button">
+                <span class="button-text">Predict Delay</span>
+                <div class="loading-spinner"></div>
+            </button>
             <button class="clear" onclick="onClearResult()" type="button">Clear Result</button>
             <div id="predictionResult" class="result_box">
         </div>

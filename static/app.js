@@ -1,6 +1,18 @@
 function onClickedPredictDelay() {
     console.log("Predict delay button clicked");
 
+    // Get a reference to the Predict Delay button
+    var predictButton = document.getElementById("predictButton");
+
+    // Check if the button is already in a loading state
+    if (predictButton.classList.contains("loading")) {
+        console.log("Prediction in progress. Please wait.");
+        return;
+    }
+
+    // Add loading class to the button
+    predictButton.classList.add("loading");
+
     var month = parseInt(document.getElementById("uiMonth").value);
     var dayOfMonth = parseInt(document.getElementById("uiDayOfMonth").value);
     var dayOfWeek = parseInt(document.getElementById("uiDayOfWeek").value);
@@ -9,7 +21,7 @@ function onClickedPredictDelay() {
     var origin = document.getElementById("uiOrigin").value;
     var dest = document.getElementById("uiDest").value;
     var distance = parseFloat(document.getElementById("uiDistance").value);
-    
+
     var url = "/predict_flight_delay";
 
     $.post(url, {
@@ -24,6 +36,9 @@ function onClickedPredictDelay() {
     }, function (data, status) {
         console.log(data);
 
+        // Remove loading class from the button
+        predictButton.classList.remove("loading");
+
         // Check if there's an error
         if (data.error) {
             console.log("Error in prediction. Please check input parameters.");
@@ -32,24 +47,26 @@ function onClickedPredictDelay() {
             // Update the HTML content with the prediction result
             var predictionResultElement = document.getElementById('predictionResult');
 
-if (predictionResultElement) {
-    if (data.delay_prediction === 1) {
-        predictionResultElement.textContent = "There will be a delay.";
-        predictionResultElement.classList.add('result_box');
-    } else if (data.delay_prediction === 0) {
-        predictionResultElement.textContent = "There won't be a delay.";
-        predictionResultElement.classList.add('result_box');
-    } else {
-        predictionResultElement.textContent = "Unexpected response. Please check the server.";
-    }
-} else {
-    console.log("Error: Element with id 'predictionResult' not found.");
-}
-
+            if (predictionResultElement) {
+                if (data.delay_prediction === 1) {
+                    predictionResultElement.textContent = "There will be a delay.";
+                    predictionResultElement.classList.add('result_box');
+                } else if (data.delay_prediction === 0) {
+                    predictionResultElement.textContent = "There won't be a delay.";
+                    predictionResultElement.classList.add('result_box');
+                } else {
+                    predictionResultElement.textContent = "Unexpected response. Please check the server.";
+                }
+            } else {
+                console.log("Error: Element with id 'predictionResult' not found.");
+            }
         }
     }).fail(function (xhr, textStatus, errorThrown) {
         console.log("POST request failed:", textStatus);
         console.log("Error thrown:", errorThrown);
+
+        // Remove loading class from the button in case of failure
+        predictButton.classList.remove("loading");
     });
 }
 
