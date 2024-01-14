@@ -22,7 +22,8 @@ def predict_delay(month, day_of_month, day_of_week, dep_time, unique_carrier, or
         # Load the saved scaler, encoder, and model
         loaded_scaler = joblib.load('scaler.pkl')
         loaded_ordinal_encoder = joblib.load('encoder.pkl')
-        loaded_propagation_model = joblib.load('label_propagation_model.pkl')
+        loaded_propagation_model = joblib.load('svm_model.pkl')
+        #loaded_propagation_model = joblib.load('label_propagation_model.pkl') 
 
         # Encode categorical features
         categorical_columns = ['UniqueCarrier', 'Origin', 'Dest']
